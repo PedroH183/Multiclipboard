@@ -1,7 +1,9 @@
 #! python3
-# Projeto feito para simular um multiclipboard, armazena, copia e cola o texto
-# salvo nos argumentos 
-# @ projeto do livro "Automatize tarefas maçantes com python"
+# Projeto feito para simular um multiclipboard, armazena, copia e cola 
+# o texto salvo nos argumentos 
+# Use py.exe mcb.pyw <argumento 1 > <argumento 2>
+# argumentos 1 valido == save, paste e list, 
+# caso o argumento seja list não é necessário um outro argumento
 
 
 import sys
@@ -9,7 +11,6 @@ import shelve as sh
 import pyperclip as py
 
 mcbShelf = sh.open('mcbKeys')
-#Tratando entrada de argumentos 
 
 def erro():
     print(
@@ -30,7 +31,7 @@ def one_arguments(argv1):
         print('A lista de keys foi copiado para o clipboard aqui estão elas : %s' %(chaves) )
     else:
         erro()
-    
+    # return é necessário para fechar o shelf 
     return 
 
 
@@ -45,25 +46,26 @@ def two_arguments(argv1,argv2):
         print('O texto referente a key %s foi copiado para o clipboard' %(argv1))
     else:
         erro()
-
+    # return é necessário para fechar o shelf 
     return
 
 first_argv = sys.argv[1]
+#argumentos validos
 list_of_options = ['save','list','paste']
 
+# Testando a entrada de valores
 if first_argv in list_of_options:
     pass
 else:
     erro()
 
+#tentando rodar com dois argumentos
 try:
-    #tentando rodar com dois argumentos
     second_argv = sys.argv[2] # nome da variavel 
     two_arguments(first_argv,second_argv)
 
+# programa rodando com apenas um argumento
 except IndexError:
-    ##só foi detectado um argumento rodando como consulta!!
-    # programa rodando com apenas um argumento
     one_arguments(first_argv)
 
 
