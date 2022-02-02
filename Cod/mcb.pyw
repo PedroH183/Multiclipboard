@@ -9,7 +9,7 @@ import sys
 import shelve as sh
 import pyperclip as py
 
-mcbShelf = sh.open('mcbKeys','a')
+mcbShelf = sh.open('mcbKeys')
 # Salvar o conteudo do clipboard 
 try:
     #sys.argv[0] é o path do cód
@@ -23,26 +23,24 @@ except IndexError:
 
 first_options = ['save','list']
 #Tratando 
-if first_arg in first_options:
+if first_arg == first_options[0]:
     text_in_clip = py.paste()
-    lista_chaves = list(mcbShelf.key())
-    lista_chaves.append(second_arg)
-    lista_chaves[second_arg] = text_in_clip
-    print('texto copiado')
+    mcbShelf[str(second_arg)] = py.paste()
+    print('texto copiado para a o argumento %s' %(second_arg))
     sys.exit()
 
 # listar palavras chaves e carrega conteudo 
-elif first_arg in first_options:
+elif first_arg == first_options[1]:
     lista_chave = py.copy(list(mcbShelf.keys()))
     print('A lista de keys foi copiado para o clipboard aqui estão elas : %s' %(lista_chave) )
 
+elif (first_arg not in first_options) or (first_arg in list(mcbShelf.keys())):
+    py.copy = mcbShelf[first_arg]
+    print('O texto salvo em %s foi copiado para o clipboard'% (mcbShelf[first_arg]))
+    sys.exit()
 
-
-
-
-
-
-
-
+else:
+    print('algo deu errado pfv verificar')
+    sys.exit()
 
 mcbShelf.close()
