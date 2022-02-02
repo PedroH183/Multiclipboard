@@ -10,37 +10,52 @@ import shelve as sh
 import pyperclip as py
 
 mcbShelf = sh.open('mcbKeys')
-# Salvar o conteudo do clipboard 
+#Tratando entrada de argumentos 
+
+def one_arguments(argv1,options):
+    if argv1 == options[1]:
+        lista_chave = py.copy(list(mcbShelf.keys()))
+        print('A lista de keys foi copiado para o clipboard aqui estão elas : %s' %(lista_chave) )
+
+    elif argv1 == options[2]:
+        py.copy(mcbShelf[argv1])
+        print('O texto referente a key %s foi copiado para o clipboard' %(argv1))
+        
+
+    else: 
+        print(
+            f"""Digite um argumento válido na entrada do programa
+            Example : mcb.pyw <argument> <argument optional>""")
+    
+    sys.exit()
+
+
+def two_arguments(argv1,argv2, options):
+    if argv1 == options[1]:
+        text_in_clip = py.paste()
+        mcbShelf[str(argv2)] = text_in_clip
+        print('texto salvo para a o argumento %s' %(argv2))
+        
+
+    elif argv1 == options[2]:
+        lista_chave = py.copy(list(mcbShelf.keys()))
+        print('A lista de keys foi copiado para o clipboard aqui estão elas : %s' %(lista_chave) )
+
+    sys.exit()
+
+
 try:
-    #sys.argv[0] é o path do cód
-    first_arg = sys.argv[1]
-    second_arg = sys.argv[2]
+    #tentando rodar com dois argumentos
+    list_of_options = ['save','list']
+    first_argv = sys.argv[1]
+    second_argv = sys.argv[2]
+    two_arguments(first_argv,second_argv, list_of_options)
+
 
 except IndexError:
-    print("""Passe dois argumento para iniciar o multicliboard
-            Example : mcb.pyw save <name of variable>""")
-    sys.exit()
-
-first_options = ['save','list']
-#Tratando 
-if first_arg == first_options[0]:
-    text_in_clip = py.paste()
-    mcbShelf[str(second_arg)] = py.paste()
-    print('texto copiado para a o argumento %s' %(second_arg))
-    sys.exit()
-
-# listar palavras chaves e carrega conteudo 
-elif first_arg == first_options[1]:
-    lista_chave = py.copy(list(mcbShelf.keys()))
-    print('A lista de keys foi copiado para o clipboard aqui estão elas : %s' %(lista_chave) )
-
-elif (first_arg not in first_options) or (first_arg in list(mcbShelf.keys())):
-    py.copy = mcbShelf[first_arg]
-    print('O texto salvo em %s foi copiado para o clipboard'% (mcbShelf[first_arg]))
-    sys.exit()
-
-else:
-    print('algo deu errado pfv verificar')
-    sys.exit()
+    ##só foi detectado um argumento rodando como consulta!!
+    # programa rodando com apenas um argumento
+    list_of_options = ['list','consulta'] 
+    one_arguments(first_argv, list_of_options)
 
 mcbShelf.close()
