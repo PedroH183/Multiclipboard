@@ -21,22 +21,26 @@ except IndexError:
             Example : mcb.pyw save <name of variable>""")
     sys.exit()
 
-if first_arg == 'save':
+first_options = ['save','list']
+#Tratando 
+if first_arg in first_options:
     text_in_clip = py.paste()
     lista_chaves = list(mcbShelf.key())
-    lista_chaves.append(function)
-    lista_chaves[function] = text_in_clip
+    lista_chaves.append(second_arg)
+    lista_chaves[second_arg] = text_in_clip
     print('texto copiado')
     sys.exit()
 
-
-elif first_arg == 'list':
+# listar palavras chaves e carrega conteudo 
+elif first_arg in first_options:
     lista_chave = py.copy(list(mcbShelf.keys()))
     print('A lista de keys foi copiado para o clipboard aqui estão elas : %s' %(lista_chave) )
 
 
 
-# listar palavras chaves e carrega conteudo 
+
+
+
 
 
 
