@@ -27,7 +27,7 @@ def one_arguments(argv1,options):
             f"""Digite um argumento válido na entrada do programa
             Example : mcb.pyw <argument> <argument optional>""")
     
-    sys.exit()
+    return 
 
 
 def two_arguments(argv1,argv2, options):
@@ -41,13 +41,12 @@ def two_arguments(argv1,argv2, options):
         lista_chave = py.copy(list(mcbShelf.keys()))
         print('A lista de keys foi copiado para o clipboard aqui estão elas : %s' %(lista_chave) )
 
-    sys.exit()
+    return
 
-
+first_argv = sys.argv[1]
 try:
     #tentando rodar com dois argumentos
     list_of_options = ['save','list']
-    first_argv = sys.argv[1]
     second_argv = sys.argv[2]
     two_arguments(first_argv,second_argv, list_of_options)
 
@@ -58,4 +57,6 @@ except IndexError:
     list_of_options = ['list','consulta'] 
     one_arguments(first_argv, list_of_options)
 
+
 mcbShelf.close()
+sys.exit()
