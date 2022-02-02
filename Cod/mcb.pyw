@@ -39,9 +39,9 @@ def two_arguments(argv1,argv2):
         text_in_clip = py.paste()
         mcbShelf[argv2] = text_in_clip
         print('texto salvo para a o argumento %s' %(argv2))
-        
+
     elif argv1 == 'paste':
-        py.copy(mcbShelf[argv1])
+        py.copy(mcbShelf[argv2])
         print('O texto referente a key %s foi copiado para o clipboard' %(argv1))
     else:
         erro()
