@@ -2,3 +2,5 @@ resolver o bug com o executável para poder rodar todas as funções sem ter que
 (resolver com um script bat criado com base na key automatizar a consulta)
 
 resolver o bug de não conseguir apagar uma key já salva
+
+adicionar o .lowcase na entrada para aumentar a consistencia do programa
