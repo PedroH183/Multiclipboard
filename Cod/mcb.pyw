@@ -12,6 +12,12 @@ import pyperclip as py
 mcbShelf = sh.open('mcbKeys')
 #Tratando entrada de argumentos 
 
+def erro():
+    print(
+        f"""Digite um argumento válido na entrada do programa
+            Example : mcb.pyw <argument> <argument optional>""")
+    sys.exit()
+
 def one_arguments(argv1,options):
     if argv1 == options[1]:
         lista_chave = py.copy(list(mcbShelf.keys()))
@@ -20,12 +26,9 @@ def one_arguments(argv1,options):
     elif argv1 == options[2]:
         py.copy(mcbShelf[argv1])
         print('O texto referente a key %s foi copiado para o clipboard' %(argv1))
-        
-
-    else: 
-        print(
-            f"""Digite um argumento válido na entrada do programa
-            Example : mcb.pyw <argument> <argument optional>""")
+    
+    else:
+        erro()
     
     return 
 
@@ -41,6 +44,9 @@ def two_arguments(argv1,argv2, options):
         lista_chave = py.copy(list(mcbShelf.keys()))
         print('A lista de keys foi copiado para o clipboard aqui estão elas : %s' %(lista_chave) )
 
+    else:
+        erro()
+        
     return
 
 first_argv = sys.argv[1]
