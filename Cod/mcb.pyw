@@ -11,7 +11,7 @@ import sys
 import shelve as sh
 import pyperclip as py
 
-mcbShelf = sh.open('mcbKeys')
+mcbShelf = sh.open('Keys')
 
 def erro():
     print(
@@ -28,11 +28,7 @@ def one_arguments(argv1):
     if argv1 == 'list':
         chaves = mcbShelf.keys()
         chaves = str(list(chaves))
-        if len(chaves)<1:
-            print('não há keys armazenadas')
-        else:
-            py.copy(chaves)
-            print('A lista de keys foi copiado para o clipboard aqui estão elas : %s' %(chaves) )
+        print('A lista de keys foi copiado para o clipboard aqui estão elas : %s' %(chaves) )
     else:
         erro()
     # return é necessário para fechar o shelf 
@@ -47,7 +43,7 @@ def two_arguments(argv1,argv2):
 
     elif argv1 == 'paste':
         py.copy(mcbShelf[argv2])
-        print('O texto referente a key %s foi copiado para o clipboard' % (argv1) )
+        print('O texto referente a key %s foi copiado para o clipboard' % (argv2) )
 
     elif argv1 == 'rm':
         del mcbShelf[argv2]
@@ -70,12 +66,7 @@ else:
 #tentando rodar com dois argumentos
 try:
     second_argv = sys.argv[2] # nome da variavel 
-    if second_argv in list_of_options:
-        pass
-    else:
-        erro()
     two_arguments(first_argv,second_argv)
-
 # programa rodando com apenas um argumento
 except IndexError:
     one_arguments(first_argv)
